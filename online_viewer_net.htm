@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Days Countdown</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Lyon Text", "Lyon Display", Georgia, "Times New Roman", serif;
+            font-weight: 700;
+        }
+
+        .countdown-box {
+            background: #FFE278;
+            border: 3px;
+            border-radius: 20px;
+            padding: 24px 32px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 26px;
+            margin-bottom: 1px;
+        }
+
+        .countdown {
+            display: inline-flex;
+            align-items: baseline;
+            font-size: 72px;
+        }
+
+        .days-label {
+            font-size: 20px;
+            margin-left: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="countdown-box">
+        <div class="title">Semester Countdown</div>
+        <div class="countdown">
+            <span id="days"></span>
+            <span class="days-label">days</span>
+        </div>
+    </div>
+
+    <script>
+        // 🔧 Set your target date here (YYYY-MM-DD)
+        const targetDate = new Date("2026-05-07T00:00:00");
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = targetDate - now;
+
+            const daysRemaining = Math.max(
+                Math.ceil(difference / (1000 * 60 * 60 * 24)),
+                0
+            );
+
+            document.getElementById("days").textContent = daysRemaining;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60 * 60 * 1000);
+    </script>
+
+</body>
+</html>
