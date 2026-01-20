@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sectioned Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: "Lyon Text", "Lyon Display", Georgia, "Times New Roman", serif;
+            font-weight: 700;
+        }
+
+        .clock {
+            text-align: center;
+        }
+
+        .time-boxes {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .box {
+            position: relative;
+            width: 90px;
+            height: 120px;
+            border-radius: 5px;
+            background: #FFE278;
+            border: 2px ;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 46px;
+        }
+
+        .ampm {
+            position: absolute;
+            bottom: 6px;
+            right: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .date {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock">
+        <div class="time-boxes">
+            <div class="box" id="hours"></div>
+            <div class="box" id="minutes"></div>
+            <div class="box" id="seconds">
+                <span class="ampm" id="ampm"></span>
+            </div>
+        </div>
+        <div class="date" id="date"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12 || 12;
+            hours = String(hours).padStart(2, '0');
+
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').childNodes[0].textContent = seconds;
+            document.getElementById('ampm').textContent = ampm;
+
+            const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+            const restOfDate = now.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            document.getElementById('date').textContent =
+                `${weekday} | ${restOfDate}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
